@@ -5,6 +5,7 @@ class CreateUsersTable < ActiveRecord::Migration
       t.string :email
       t.string :password_digest 
       #this encrypts the password with bcrypt in gemfile
-
+      t.timestamps null: false
+      end
   end
 end
