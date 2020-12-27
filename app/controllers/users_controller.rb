@@ -29,12 +29,37 @@ post '/login' do
 end
 
   #what routes do I need for signup?
+  #this routes job is to render the sign up form 
   get '/signup' do
-    
+
+    #erb(render) a view
+    erb :signup
   end
 
+  post '/users' do
+  #where we will create a new user and persist a new user to the database
+  #this will be done through params
+  #"name"=>"elizabeth"
+  #I only want to persist a user that has a name, email, password
+  if params[:name] != "" && params[:email] != "" && params[:password] != "" #an empty string #an assumption that post request is result of the form 
+  @user=User.create(params) 
+  #where do I go now?
+  # go to the user show page but my choice, when they sign up where do you want them to go?
+  #views for a particular resource go in new folder
+redirect "/users/#{:user.id}"
+#the result is a brand new get request, why is this better than rendering?
+# could also use erb :'/users/show' but worse
+# the difference between redirect and render
+#rendering should happen from a show 
+else 
+    #not valid input
+  end 
+  
+  #user SHOW route
   get '/users/:id' do
+    erb :'/users/show'
   "this will be the user show route"
   end
 
+end
 end
