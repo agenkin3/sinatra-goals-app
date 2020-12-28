@@ -23,6 +23,7 @@ post '/login' do
   puts session
   redirect "users/#{@user.id}"
   else 
+
     #tell the user they entered invalid credentials
     #redirect them to the login page 
   end
@@ -43,7 +44,7 @@ end
   #I only want to persist a user that has a name, email, password
   if params[:name] != "" && params[:email] != "" && params[:password] != "" #an empty string #an assumption that post request is result of the form 
   @user=User.create(params) 
-  #where do I go now?
+  session[:user_id] = @user.id #logs the user in 
   # go to the user show page but my choice, when they sign up where do you want them to go?
   #views for a particular resource go in new folder
 redirect "/users/#{:user.id}"
@@ -53,13 +54,22 @@ redirect "/users/#{:user.id}"
 #rendering should happen from a show 
 else 
     #not valid input
-  end 
+    #would be better to include message telling them what is wrong
+redirect '/signup'
+end
+end 
   
   #user SHOW route
   get '/users/:id' do
+    @user=User.find_by(id: params[:id])
+    #can either log them in or send them back to login page
     erb :'/users/show'
   "this will be the user show route"
   end
 
-end
+  get '/logout' do
+    session.clear
+    redirect '/'
+  end
+  
 end
