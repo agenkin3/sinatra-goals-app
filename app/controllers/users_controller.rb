@@ -12,6 +12,7 @@ end
 #the purpose of this route is to receive the login form
 #find the user and log the user in (create a session)
 
+
 post '/login' do
   #find the user
   @user = User.find_by(email: params[:email])

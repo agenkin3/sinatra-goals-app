@@ -15,9 +15,6 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
-  get '/goal_entries' do
-    "Hello World"
-  end
 
   helpers do
 
