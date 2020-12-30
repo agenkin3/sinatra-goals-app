@@ -48,7 +48,7 @@ end
   session[:user_id] = @user.id #logs the user in 
   # go to the user show page but my choice, when they sign up where do you want them to go?
   #views for a particular resource go in new folder
-  redirect "/users/#{:user.id}"
+  redirect "/users/#{@user.id}"
 #the result is a brand new get request, why is this better than rendering?
 # could also use erb :'/users/show' but worse
 # the difference between redirect and render
