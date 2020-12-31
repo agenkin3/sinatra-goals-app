@@ -1,40 +1,62 @@
 class GoalEntriesController < ApplicationController
   
-  #get goal_entries/new to render a form to create new one
   get '/goal_entries' do
-  #   @goal_entries = GoalEntry.all
-  erb :'goal_entries/index'
+    @goal_entries = GoalEntry.all
+    erb :'goal_entries/index'
   end
 
-    # get goal_entries/new to render a form to create new entry
-    #show the new page or render the form
-    get '/goal_entries/new' do
-      redirect_if_not_logged_in
-      erb :'/goal_entries/new'
+  get '/goal_entries/new' do
+    redirect_if_not_logged_in
+    erb :'/goal_entries/new'
     end
 
-    #post goal_entries to create a new journal entry 
     post '/goal_entries' do
-      #only want to create new entry if user is logged in 
-      if !logged_in?
-        redirect '/'
-      end
-
-      if params[:content] != ""
-        #create a new entry
-        @journal_entry = JournalEntry.create(content:params[:content],user_id: current_user.id)
-      else
-        redirect '/journal_entries_new'
-
+        @goal_entry = GoalEntry.create(content: params[:content], user_id: current_user.id, month: params[:month], year: params[:year])
+        redirect "/goal_entries/#{@goal_entry.id}"
     end
-    #doesnt render anything
-    #create a new journal entry and save it to DB 
 
+  get '/goal_entries/:id' do
+    set_goal_entry
+    erb :'/goal_entries/show'
+  end
 
-    #show page for a journal entry
-    get '/show' do
-      erb :'goal_entries/show'
-    #index route for all journal entries
+  get '/goal_entries/:id/edit' do
+    set_goal_entry
+    erb :'/goal_entries/edit'
+  end
 
+def set_goal_entry
+  @goal_entry = GoalEntry.find(params[:id])
 end
+
+patch '/goal_entries/:id' do
+  redirect_if_not_logged_in
+  # 1. find the journal entry
+  set_goal_entry
+  if @goal_entry.user == current_user && params[:content] != ""
+  # 2. modify (update) the journal entry
+    @goal_entry.update(content: params[:content])
+    # 3. redirect to show page
+    redirect "/goal_entries/#{@goal_entry.id}"
+  else
+    redirect "users/#{current_user.id}"
+  end
+  end
+
+  delete '/goal_entries/:id' do #delete action
+    set_goal_entry
+    @goal_entry.destroy
+    redirect '/goal_entries'
+  end
 end
+
+  # delete '/goal_entries/:id' do
+  #   set_goal_entry
+  #   if authorized_to_edit?(@goal_entry)
+  #     @goal_entry.destroy
+  #     flash[:message] = "Successfully deleted that entry."
+  #     redirect '/goal_entries'
+  #   else
+  #     redirect '/goal_entries'
+  #   end
+  # end

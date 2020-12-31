@@ -10,11 +10,17 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "our_awesome_journal_app"
   end
 
+  get '/goal_entries_new' do
+    redirect_if_not_logged_in
+    erb :'/goal_entries/new'
+  end
+
   get "/" do
     redirect_if_logged_in
     erb :welcome
   end
 
+  
 
   helpers do
 
@@ -32,8 +38,8 @@ class ApplicationController < Sinatra::Base
 #or equals || will create and assign if the current user is found
 #helpers are available through views and controllers
 
-    def authorized_to_edit?(journal_entry)
-      journal_entry.user == current_user
+    def authorized_to_edit?(goal_entry)
+      goal_entry.user == current_user
     end
 
     # use this helper method to protect controller actions where user must be logged in to proceed
@@ -51,6 +57,9 @@ class ApplicationController < Sinatra::Base
       end
     end
 
-  end
+    
+  
+    end
 
-end
+
+  end

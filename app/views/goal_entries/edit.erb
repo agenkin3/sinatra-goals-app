@@ -1,0 +1,8 @@
+EDIT PAGE FOR A GOAL ENTRY
+
+<form class="" action="/goal_entries/<%= @goal_entry.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="content">Content:</label>
+  <textarea name="content" style="width:auto; height:auto;"><%= @goal_entry.content %></textarea>
+  <input type="submit" name="" value="Edit Entry">
+</form>

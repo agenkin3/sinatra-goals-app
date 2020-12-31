@@ -15,18 +15,17 @@ end
 
 post '/login' do
   #find the user
-  @user = User.find_by(email: params[:email])
+  if @user = User.find_by(email: params[:email])
   #authenticate the user - verify the user is who they say they are with the right email and password combo
-  if @user.authenticate(params[:password])
+    if @user.authenticate(params[:password])
   #log the user in - create their session
   #redirect to the user's landing page(show? index? dashboard?)
   session[:user_id] = @user.id
   puts session
   redirect "users/#{@user.id}"
+    end
   else 
-
-    #tell the user they entered invalid credentials
-    #redirect them to the login page 
+    erb :signup
   end
 end
 
@@ -65,7 +64,7 @@ end
     @user=User.find_by(id: params[:id])
     #can either log them in or send them back to login page
     erb :'/users/show'
-  "this will be the user show route"
+  #this will be the user show route
   end
 
   get '/logout' do

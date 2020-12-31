@@ -1,1 +1,18 @@
-SHOW PAGE FOR A GOAL ENTRY
+
+<h3><%= @goal_entry.content %></h3>
+<h3><%= @goal_entry.month %></h3>
+<h3><%= @goal_entry.year %></h3>
+
+<p>Created by: <%= @goal_entry.user.name %></p>
+
+
+<% if authorized_to_edit?(@goal_entry) %>
+  <a href="/goal_entries/<%= @goal_entry.id %>/edit">Edit Entry</a>
+  <br><br>
+  <form class="" action="/goal_entries/<%= @goal_entry.id %>" method="post">
+
+  <form action="/goal_entries/<%= @goal_entry.id %>" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="delete">
+  </form>
+<% end %>

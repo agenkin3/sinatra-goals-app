@@ -1,0 +1,8 @@
+ALL GOAL ENTRIES
+<% @goal_entries.each do |goal_entry| %>
+  <h4><a href="goal_entries/<%= goal_entry.id %>"><%= goal_entry.created_at %></a></h4>
+  <p><%= goal_entry.content %></p>
+  <p>By <%= goal_entry.user.name %></p>
+  <p>Email: <%= goal_entry.user.email %></p>
+  <br><br>
+<% end %>
