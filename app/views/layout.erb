@@ -15,9 +15,11 @@
   </head>
   <body>
     <div class="nav">
+    <% if logged_in? %>
     <a href="/logout">Logout</a>
     <a href="/goal_entries"> View Goals</a>
     <a href="/goal_entries/new">New Entry</a>
+    <% end %>
     </div>
     <div class="wrapper">
         <%= yield %>
