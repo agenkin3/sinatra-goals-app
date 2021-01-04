@@ -25,16 +25,18 @@ class GoalEntriesController < ApplicationController
     erb :'/goal_entries/edit'
   end
 
+#helper
 def set_goal_entry
   @goal_entry = GoalEntry.find(params[:id])
 end
 
+#update
 patch '/goal_entries/:id' do
   redirect_if_not_logged_in
-  # 1. find the journal entry
+  # 1. find the goal entry
   set_goal_entry
   if @goal_entry.user == current_user && params[:content] != ""
-  # 2. modify (update) the journal entry
+  # 2. modify (update) the goal entry
     @goal_entry.update(content: params[:content])
     # 3. redirect to show page
     redirect "/goal_entries/#{@goal_entry.id}"
@@ -43,13 +45,15 @@ patch '/goal_entries/:id' do
   end
   end
 
-  delete '/goal_entries/:id' do #delete action
+  #delete
+  delete '/goal_entries/:id' do 
     set_goal_entry
     @goal_entry.destroy
     redirect '/goal_entries'
   end
 end
 
+  #with flash message
   # delete '/goal_entries/:id' do
   #   set_goal_entry
   #   if authorized_to_edit?(@goal_entry)

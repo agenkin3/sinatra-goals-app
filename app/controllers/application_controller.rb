@@ -20,9 +20,9 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
-  
 
   helpers do
+    #helpers are available through views and controllers
 
     def logged_in?
       # true if user is logged in, otherwise false
@@ -31,32 +31,26 @@ class ApplicationController < Sinatra::Base
 
     def current_user
       @current_user ||= User.find_by(id: session[:user_id])
+      #using @ reduces the number of database calls
     end
-#if find doesn't return what it's looking for it returns error which is why we use find_by
-#find_by is an activerecord method that is going to query the database
-#using @ reduces the number of database calls
-#or equals || will create and assign if the current user is found
-#helpers are available through views and controllers
 
     def authorized_to_edit?(goal_entry)
       goal_entry.user == current_user
     end
 
-    #helper method to protect controller actions where user must be logged in to proceed
+    #protect controller actions where user must be logged in to proceed
     def redirect_if_not_logged_in
       if !logged_in?
         redirect '/'
       end
     end
 
-    #helper method to avoid showing welcome, login, or signup page to a user that's already logged in
+    #avoid showing welcome, login, or signup page to a user that's already logged in
     def redirect_if_logged_in
       if logged_in?
         redirect "/users/#{current_user.id}"
       end
     end
-  
     end
-
 
   end
