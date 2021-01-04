@@ -2,7 +2,7 @@ ALL GOAL ENTRIES
 <% @goal_entries.each do |goal_entry| %>
   <h4>Created at: <a href="goal_entries/<%= goal_entry.id %>"><%= goal_entry.created_at.to_date %></a></h4>
   <p><%= goal_entry.content %></p>
-  <p>By <%= goal_entry.user.name %></p>
+  <p> <%= goal_entry.user.name %> is making it happen.</p>
   <p>Email: <%= goal_entry.user.email %></p>
   <br><br>
 <% end %>
