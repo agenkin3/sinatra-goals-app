@@ -1,8 +1,11 @@
 
-<h3>Goal: <%= @goal_entry.content %></h3>
-<h3>Accomplish by: <%= @goal_entry.month%> <%= @goal_entry.year %> </h3>
+<h1>Goal: <%= @goal_entry.content %></h1>
 
-<p>Created by: <%= @goal_entry.user.name %></p>
+<p>Accomplish by: <%= @goal_entry.month%> <%= @goal_entry.year %> </p>
+
+<p> Created by <%= @goal_entry.user.name %>
+
+</p>
 
 
 <% if authorized_to_edit?(@goal_entry) %>
@@ -12,7 +15,7 @@
 
   <form action="/goal_entries/<%= @goal_entry.id %>" method="post">
 	<input type="hidden" name="_method" value="delete">
-  <input type="submit" value="delete">
+  <input type="submit" value="Take this goal off my list! (delete)">
   
  
   <br>
