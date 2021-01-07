@@ -1,4 +1,4 @@
-A simple Goals app that allows users to log in, sign up, and create goal entries. Users can also edit and delete their own entries. 
+This is a Goals app that allows users to log in, sign up, and create goal entries. Users can also edit and delete their own entries. Users can view their goal entries and the goals of others. Users can edit goal entries. 
 
 LICENSE
 Copyright <2020> <alicegenkin>
