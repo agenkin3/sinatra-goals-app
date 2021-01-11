@@ -52,15 +52,3 @@ patch '/goal_entries/:id' do
     redirect '/goal_entries'
   end
 end
-
-  #with flash message
-  # delete '/goal_entries/:id' do
-  #   set_goal_entry
-  #   if authorized_to_edit?(@goal_entry)
-  #     @goal_entry.destroy
-  #     flash[:message] = "Successfully deleted that entry."
-  #     redirect '/goal_entries'
-  #   else
-  #     redirect '/goal_entries'
-  #   end
-  # end
