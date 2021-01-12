@@ -1,22 +1,23 @@
 class UsersController < ApplicationController
 
- 
 get '/login' do
   erb :login
 end
 
 post '/login' do
- 
-  if @user = User.find_by(email: params[:email])
+ #find the user 
+  if @user = User.find_by(email: params[:email]) 
     if @user.authenticate(params[:password])
     session[:user_id] = @user.id
-    puts session
     redirect "users/#{@user.id}"
+    #authenticate the user
+    #send them to user landing page
     else 
       erb :signup
     end
   else 
     erb :signup
+    #render sign up form 
   end
 end
 
@@ -27,10 +28,10 @@ end
   post '/users' do
   if params[:name] != "" && params[:email] != "" && params[:password] != "" 
   @user=User.create(params) 
+  #creates user and persists to the database
   session[:user_id] = @user.id #logs the user in 
   # go to the user show page
   redirect "/users/#{@user.id}"
-
 else 
     #if not valid input, take them back to signup 
 redirect '/signup'

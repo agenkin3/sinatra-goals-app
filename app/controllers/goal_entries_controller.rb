@@ -11,8 +11,12 @@ class GoalEntriesController < ApplicationController
     end
 
     post '/goal_entries' do
-        @goal_entry = GoalEntry.create(content: params[:content], user_id: current_user.id, month: params[:month], year: params[:year])
+      if params[:content] != "" && params[:month] != "" && params[:year] != "" 
+        @goal_entry = current_user.goal_entries.create(params)
         redirect "/goal_entries/#{@goal_entry.id}"
+      else
+        erb :'/goal_entries/new'
+      end
     end
 
   get '/goal_entries/:id' do
@@ -22,7 +26,11 @@ class GoalEntriesController < ApplicationController
 
   get '/goal_entries/:id/edit' do
     set_goal_entry
+    if @goal_entry.user == current_user
     erb :'/goal_entries/edit'
+    else 
+      redirect "/goal_entries"
+    end
   end
 
 #helper
