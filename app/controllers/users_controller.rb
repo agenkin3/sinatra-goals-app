@@ -6,18 +6,14 @@ end
 
 post '/login' do
  #find the user 
-  if @user = User.find_by(email: params[:email]) 
-    if @user.authenticate(params[:password])
+   @user = User.find_by(email: params[:email]) 
+    if @user && @user.authenticate(params[:password])
     session[:user_id] = @user.id
     redirect "users/#{@user.id}"
     #authenticate the user
-    #send them to user landing page
-    else 
-      erb :signup
-    end
+    #send them to user landing page 
   else 
-    erb :signup
-    #render sign up form 
+    redirect '/login' 
   end
 end
 
@@ -29,12 +25,14 @@ end
   if params[:name] != "" && params[:email] != "" && params[:password] != "" 
   @user=User.create(params) 
   #creates user and persists to the database
+  if @user.save
   session[:user_id] = @user.id #logs the user in 
   # go to the user show page
   redirect "/users/#{@user.id}"
 else 
     #if not valid input, take them back to signup 
-redirect '/signup'
+erb :'/signup'
+end
 end
 end 
   
