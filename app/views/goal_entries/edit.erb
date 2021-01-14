@@ -4,5 +4,9 @@ EDIT PAGE FOR A GOAL ENTRY
   <input type="hidden" name="_method" value="patch">
   <label for="content">New goal:</label>
   <textarea name="content" style="width:auto; height:auto;"><%= @goal_entry.content %></textarea>
+  <label for="content">New month:</label>
+  <textarea name="month" style="width:auto; height:auto;"><%= @goal_entry.month %></textarea>
+  <label for="content">New year:</label>
+  <textarea name="year" style="width:auto; height:auto;"><%= @goal_entry.year %></textarea>
   <input type="submit" name="" value="Save New Entry">
 </form>

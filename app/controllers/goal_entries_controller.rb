@@ -49,11 +49,20 @@ patch '/goal_entries/:id' do
   redirect_if_not_logged_in
   # 1. find the goal entry
   set_goal_entry
-  if @goal_entry.user == current_user && params[:content] != ""
-  # 2. modify (update) the goal entry
-    @goal_entry.update(content: params[:content])
-    # 3. redirect to show page
-    redirect "/goal_entries/#{@goal_entry.id}"
+  if @goal_entry.user == current_user # don't think we need this && params[:content] != ""
+    if params[:content] != "" && params[:month] != "" && params[:year] != "" 
+      # 2. modify (update) the goal entry
+      #@goal_entry.update(content: params[:content])
+      @goal_entry.content = params[:content]
+      @goal_entry.month = params[:month]
+      @goal_entry.year = params[:year]
+      @goal_entry.save
+      # 3. redirect to show page
+      redirect "/goal_entries/#{@goal_entry.id}"
+    else
+      flash[:errors] = "One or more of your fields is empty. Pls fix."
+      redirect "/goal_entries/#{@goal_entry.id}"
+    end
   else
     redirect "users/#{current_user.id}"
   end
