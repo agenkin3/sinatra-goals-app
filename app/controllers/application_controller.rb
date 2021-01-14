@@ -51,10 +51,6 @@ class ApplicationController < Sinatra::Base
       end
       #def redirect_if_logged_in_as_someone_else
       #end
-
-      def set_goal_entry
-        @goal_entry = GoalEntry.find(params[:id])
-      end
     end
   end
 end

@@ -45,9 +45,9 @@ class GoalEntriesController < ApplicationController
   end
 
 #helper
-# def set_goal_entry
-#   @goal_entry = GoalEntry.find(params[:id])
-# end
+def set_goal_entry
+  @goal_entry = GoalEntry.find(params[:id])
+end
 
 #update
 patch '/goal_entries/:id' do
