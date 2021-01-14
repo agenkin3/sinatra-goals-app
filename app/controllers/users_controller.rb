@@ -51,8 +51,13 @@ end
 get '/users/:id' do
   redirect_if_not_logged_in
   @user=User.find_by(id: params[:id])
+  if current_user.id != @user.id
+    flash[:errors] = "You are not authorized! Get out."
+    redirect "users/#{current_user.id}"
+  else
   #can either log them in or send them back to login page
   erb :'/users/show'
+  end
 end
 
 get '/logout' do
