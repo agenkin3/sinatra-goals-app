@@ -23,6 +23,7 @@ class ApplicationController < Sinatra::Base
       # true if user is logged in, otherwise false
       # this will always return a boolean value: false or true
       !!current_user
+      #could also use !!Session[:email]
     end
 
     def current_user
