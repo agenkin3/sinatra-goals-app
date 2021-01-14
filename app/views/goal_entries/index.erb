@@ -1,4 +1,4 @@
-<h4> All Goal Entries </h4>
+<h4> All of My Goal Entries </h4>
 <% @goal_entries.each do |goal_entry| %>
   <p>Entry created on <a href="goal_entries/<%= goal_entry.id %>"><%= goal_entry.created_at.to_date %></a></p>
   <p>Goal: <%= goal_entry.content %></p>
