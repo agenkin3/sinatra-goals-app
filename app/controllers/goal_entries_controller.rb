@@ -6,7 +6,7 @@ class GoalEntriesController < ApplicationController
     # database and sets the instance variable @goal_entries value
     # @goal_entries = [entry 1, entry 2, ....]
     @goal_entries = GoalEntry.where(user_id: current_user.id)
-    
+    #would be GoalEntry.all to display all regardless of user 
     erb :'goal_entries/index'
   end
 
@@ -60,7 +60,7 @@ patch '/goal_entries/:id' do
       # 3. redirect to goal show page
       redirect "/goal_entries/#{@goal_entry.id}"
     else
-      flash[:errors] = "One or more of your fields is empty."
+      flash[:errors] = "One or more of your fields cannot be set to empty."
       redirect "/goal_entries/#{@goal_entry.id}"
     end
   else
