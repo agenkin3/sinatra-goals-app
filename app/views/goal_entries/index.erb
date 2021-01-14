@@ -3,7 +3,6 @@
   <p>Entry created on <a href="goal_entries/<%= goal_entry.id %>"><%= goal_entry.created_at.to_date %></a></p>
   <p>Goal: <%= goal_entry.content %></p>
   <p> <%= goal_entry.user.name %> is making it happen.</p>
-  <p>You can email <%= goal_entry.user.name %> at <%= goal_entry.user.email %>.</p>
   <br>
 <% end %>
 <br>

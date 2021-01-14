@@ -1,7 +1,12 @@
 class GoalEntriesController < ApplicationController
   
   get '/goal_entries' do
-    @goal_entries = GoalEntry.all
+    redirect_if_not_logged_in
+    # finds all the goal entries for the current user from the 
+    # database and sets the instance variable @goal_entries value
+    # @goal_entries = [entry 1, entry 2, ....]
+    @goal_entries = GoalEntry.where(user_id: current_user.id)
+    
     erb :'goal_entries/index'
   end
 
