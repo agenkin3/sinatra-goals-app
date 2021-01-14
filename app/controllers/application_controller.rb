@@ -50,9 +50,8 @@ class ApplicationController < Sinatra::Base
         redirect "/users/#{current_user.id}"
       end
 
-      def redirect_if_logged_in_as_someone_else
-      
-      end
+      #def redirect_if_logged_in_as_someone_else
+      #end
     end
   end
 end
