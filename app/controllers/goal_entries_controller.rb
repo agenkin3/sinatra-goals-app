@@ -27,7 +27,12 @@ class GoalEntriesController < ApplicationController
 
   get '/goal_entries/:id' do
     set_goal_entry
+    if @goal_entry.user == current_user
     erb :'/goal_entries/show'
+    else 
+      flash[:errors] = "You are not authorized to view the goal you are trying to view."
+      redirect '/goal_entries'
+    end
   end
 
   get '/goal_entries/:id/edit' do
@@ -49,7 +54,7 @@ patch '/goal_entries/:id' do
   redirect_if_not_logged_in
   # 1. find the goal entry
   set_goal_entry
-  if @goal_entry.user == current_user # don't think we need this: && params[:content] != ""
+  if @goal_entry.user == current_user
     if params[:content] != "" && params[:month] != "" && params[:year] != "" 
       # 2. modify (update) the goal entry
       #@goal_entry.update(content: params[:content])
@@ -71,7 +76,11 @@ patch '/goal_entries/:id' do
   #delete
   delete '/goal_entries/:id' do 
     set_goal_entry
-    @goal_entry.destroy
+    if @goal_entry.user == current_user
+      @goal_entry.destroy
     redirect '/goal_entries'
+    else 
+    redirect "/goal_entries"
   end
+end
 end
