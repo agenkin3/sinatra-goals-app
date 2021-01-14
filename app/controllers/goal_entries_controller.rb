@@ -20,7 +20,8 @@ class GoalEntriesController < ApplicationController
         @goal_entry = current_user.goal_entries.create(params)
         redirect "/goal_entries/#{@goal_entry.id}"
       else
-        erb :'/goal_entries/new'
+        flash[:errors] = "One or more of your fields is empty. Pls fix."
+        redirect '/goal_entries/new'
       end
     end
 
