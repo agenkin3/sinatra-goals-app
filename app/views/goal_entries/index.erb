@@ -2,7 +2,6 @@
 <% @goal_entries.each do |goal_entry| %>
   <p>Entry created on <a href="goal_entries/<%= goal_entry.id %>"><%= goal_entry.created_at.to_date %></a></p>
   <p>Goal: <%= goal_entry.content %></p>
-  <p> <%= goal_entry.user.name %> is making it happen.</p>
   <br>
 <% end %>
 <br>
